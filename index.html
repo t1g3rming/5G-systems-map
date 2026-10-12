@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Where 5G Becomes Diplomatic</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Interactive systems map · Politics presentation</p>
+        <h1>Where 5G Becomes Diplomatic</h1>
+        <p class="intro">Select a node to reveal the pathways connected to it. Select “Show all pathways” to see the whole system.</p>
+      </div>
+      <div class="controls">
+        <button id="resetButton" type="button">Reset map</button>
+        <button id="showAllButton" class="primary" type="button">Show all pathways</button>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <section class="map-card" aria-label="Interactive 5G systems map">
+        <div class="map-heading">
+          <strong>Infrastructure, policy and feedback</strong>
+          <span id="mapStatus">Select a node · pathways hidden</span>
+        </div>
+        <div class="svg-scroll">
+          <svg id="systemsMap" viewBox="0 0 1200 900" role="img" aria-label="Interactive systems map of 5G geopolitics">
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z"></path>
+              </marker>
+            </defs>
+
+            <!-- Feedback-loop frames: arrows connect to these outer frames, not to their internal nodes. -->
+            <rect class="loop-frame loop-one-frame" x="35" y="650" width="530" height="220" rx="13"></rect>
+            <text class="loop-heading loop-one-heading" x="55" y="678">Feedback loop 1 · Supplier diversification</text>
+            <rect class="loop-frame loop-two-frame" x="610" y="650" width="555" height="220" rx="13"></rect>
+            <text class="loop-heading loop-two-heading" x="630" y="678">Feedback loop 2 · Replacement costs</text>
+
+            <!-- Connections. Their descriptions are editable in script.js, in the CONNECTIONS list. -->
+            <g id="connections">
+              <path id="line-china-standards" class="connection" data-nodes="china standards" d="M845 95 H700"></path>
+              <path id="line-standards-suppliers" class="connection" data-nodes="standards suppliers" d="M590 143 V215"></path>
+              <path id="line-china-suppliers" class="connection" data-nodes="china suppliers" d="M880 139 C840 190 770 230 700 244"></path>
+              <path id="line-us-suppliers" class="connection" data-nodes="us suppliers" d="M285 252 H440"></path>
+              <path id="line-suppliers-operators" class="connection" data-nodes="suppliers operators" d="M590 275 V330"></path>
+              <path id="line-eu-operators" class="connection" data-nodes="eu operators" d="M845 315 C790 350 740 365 675 365"></path>
+              <path id="line-operators-infrastructure" class="connection" data-nodes="operators infrastructure" d="M590 400 V455"></path>
+
+              <!-- Main-system connections touch the outside of each feedback-loop frame. -->
+              <path id="line-us-loop-one" class="connection" data-nodes="us loop1" d="M205 288 C105 400 65 515 95 650"></path>
+              <path id="line-operators-loop-one" class="connection" data-nodes="operators loop1" d="M505 370 C375 410 285 500 285 650"></path>
+              <path id="line-infrastructure-loop-one" class="connection" data-nodes="infrastructure loop1" d="M560 520 C540 565 480 610 480 650"></path>
+              <path id="line-eu-loop-two" class="connection" data-nodes="eu loop2" d="M920 315 C955 430 945 545 945 650"></path>
+              <path id="line-infrastructure-loop-two" class="connection" data-nodes="infrastructure loop2" d="M640 520 C700 560 735 600 735 650"></path>
+
+              <!-- Dotted, potential consequence links end at the consequences box. -->
+              <path id="line-eu-consequences" class="connection dotted" data-nodes="eu consequences" d="M930 315 C1000 350 1035 385 1040 425"></path>
+              <path id="line-operators-consequences" class="connection dotted" data-nodes="operators consequences" d="M675 382 C810 390 900 420 985 445"></path>
+              <path id="line-infrastructure-consequences" class="connection dotted" data-nodes="infrastructure consequences" d="M675 490 C800 490 900 475 985 465"></path>
+
+              <!-- Feedback-loop 1 internals. -->
+              <path id="line-loop1-a" class="connection loop-one-line" data-nodes="loop1" d="M185 765 H225"></path>
+              <path id="line-loop1-b" class="connection loop-one-line" data-nodes="loop1" d="M355 765 H395"></path>
+              <path id="line-loop1-c" class="connection loop-one-line" data-nodes="loop1" d="M455 797 C405 840 260 840 185 797"></path>
+
+              <!-- Feedback-loop 2 internals. -->
+              <path id="line-loop2-a" class="connection loop-two-line" data-nodes="loop2" d="M790 765 H825"></path>
+              <path id="line-loop2-b" class="connection loop-two-line" data-nodes="loop2" d="M935 765 H970"></path>
+              <path id="line-loop2-c" class="connection loop-two-line" data-nodes="loop2" d="M1035 797 C980 842 825 842 735 797"></path>
+            </g>
+
+            <!-- Labels are positioned beside their lines and can be edited in script.js. -->
+            <g id="connectionLabels">
+              <text class="connection-label" data-line="line-china-standards" x="775" y="72">Industry participation and</text>
+              <text class="connection-label" data-line="line-china-standards" x="775" y="86">standards contributions</text>
+              <text class="connection-label" data-line="line-standards-suppliers" x="662" y="171">Technical specifications and</text>
+              <text class="connection-label" data-line="line-standards-suppliers" x="662" y="185">interoperability standards</text>
+              <text class="connection-label" data-line="line-standards-suppliers" x="662" y="199">shape equipment requirements</text>
+              <text class="connection-label" data-line="line-china-suppliers" x="820" y="202">China's domestic industry supplies 5G equipment</text>
+              <text class="connection-label" data-line="line-us-suppliers" x="362" y="225">This can affect what technologies</text>
+              <text class="connection-label" data-line="line-us-suppliers" x="362" y="239">companies can obtain or supply</text>
+              <text class="connection-label" data-line="line-suppliers-operators" x="650" y="298">Equipment sales and</text>
+              <text class="connection-label" data-line="line-suppliers-operators" x="650" y="312">procurement</text>
+              <text class="connection-label" data-line="line-eu-operators" x="790" y="337">Rules can limit which vendors</text>
+              <text class="connection-label" data-line="line-eu-operators" x="790" y="351">operators may use</text>
+              <text class="connection-label" data-line="line-operators-infrastructure" x="655" y="430">Investment and deployment</text>
+              <text class="connection-label" data-line="line-us-loop-one" x="72" y="485">May affect supplier</text>
+              <text class="connection-label" data-line="line-us-loop-one" x="72" y="499">availability</text>
+              <text class="connection-label" data-line="line-operators-loop-one" x="315" y="515">Procurement choices</text>
+              <text class="connection-label" data-line="line-infrastructure-loop-one" x="480" y="586">Installed networks</text>
+              <text class="connection-label" data-line="line-eu-loop-two" x="968" y="555">Restrictions on installed</text>
+              <text class="connection-label" data-line="line-eu-loop-two" x="968" y="569">equipment</text>
+              <text class="connection-label" data-line="line-infrastructure-loop-two" x="750" y="585">Existing infrastructure</text>
+              <text class="connection-label" data-line="line-eu-consequences" x="1042" y="356">Policy divergence</text>
+              <text class="connection-label" data-line="line-operators-consequences" x="835" y="392">Cost / upgrade pressures</text>
+              <text class="connection-label" data-line="line-infrastructure-consequences" x="825" y="500">Possible rollout effects</text>
+              <text class="connection-label" data-line="line-loop1-c" x="290" y="846">Influences future vendor choices</text>
+              <text class="connection-label" data-line="line-loop2-c" x="885" y="846">Influences implementation timeline</text>
+            </g>
+
+            <!-- Main nodes -->
+            <g class="node" data-node="standards" tabindex="0" role="button" aria-label="International standards">
+              <rect x="480" y="57" width="220" height="86" rx="11"></rect>
+              <text x="590" y="88">International standards</text><text x="590" y="108">3GPP and ITU</text>
+            </g>
+            <g class="node" data-node="china" tabindex="0" role="button" aria-label="China 5G industry participation">
+              <rect x="845" y="58" width="180" height="81" rx="11"></rect>
+              <text x="935" y="82">China</text><text x="935" y="102">5G industry</text><text x="935" y="120">participation</text>
+            </g>
+            <g class="node" data-node="us" tabindex="0" role="button" aria-label="United States export controls">
+              <rect x="45" y="215" width="240" height="73" rx="11"></rect>
+              <text x="165" y="239">United States</text><text x="165" y="259">(Export controls and</text><text x="165" y="276">restrictions)</text>
+            </g>
+            <g class="node" data-node="suppliers" tabindex="0" role="button" aria-label="Equipment suppliers">
+              <rect x="440" y="215" width="260" height="60" rx="11"></rect>
+              <text x="570" y="239">Equipment suppliers</text><text x="570" y="258">Huawei, ZTE</text>
+            </g>
+            <g class="node" data-node="eu" tabindex="0" role="button" aria-label="EU and Member States">
+              <rect x="845" y="235" width="235" height="80" rx="11"></rect>
+              <text x="962" y="259">EU / Member States</text><text x="962" y="279">(Supplier security rules</text><text x="962" y="298">influence procurement)</text>
+            </g>
+            <g class="node" data-node="operators" tabindex="0" role="button" aria-label="Telecom operators">
+              <rect x="505" y="330" width="170" height="70" rx="11"></rect>
+              <text x="590" y="356">Telecom operators</text><text x="590" y="376">(Procurement)</text>
+            </g>
+            <g class="node" data-node="infrastructure" tabindex="0" role="button" aria-label="5G infrastructure">
+              <rect x="475" y="455" width="200" height="65" rx="11"></rect>
+              <text x="575" y="479">5G Infrastructure —</text><text x="575" y="498">installed equipment and</text><text x="575" y="514">operating networks</text>
+            </g>
+
+            <!-- Loop 1 nodes -->
+            <g class="node loop-node" data-node="restrictions" tabindex="0" role="button" aria-label="Supplier restrictions">
+              <rect x="65" y="730" width="120" height="67" rx="10"></rect>
+              <text x="125" y="758">Supplier</text><text x="125" y="777">restrictions</text>
+            </g>
+            <g class="node loop-node" data-node="alternatives" tabindex="0" role="button" aria-label="Alternative vendors considered">
+              <rect x="225" y="730" width="130" height="67" rx="10"></rect>
+              <text x="290" y="754">Alternative vendors</text><text x="290" y="774">considered</text>
+            </g>
+            <g class="node loop-node" data-node="dependence" tabindex="0" role="button" aria-label="Supplier dependence changes">
+              <rect x="395" y="730" width="130" height="67" rx="10"></rect>
+              <text x="460" y="754">Supplier</text><text x="460" y="774">dependence change</text>
+            </g>
+
+            <!-- Loop 2 nodes -->
+            <g class="node cost-node" data-node="installed" tabindex="0" role="button" aria-label="Restrictions on installed equipment">
+              <rect x="630" y="730" width="160" height="67" rx="10"></rect>
+              <text x="710" y="754">Restrictions on</text><text x="710" y="774">installed equipment</text>
+            </g>
+            <g class="node cost-node" data-node="replacement" tabindex="0" role="button" aria-label="Replacement costs">
+              <rect x="825" y="730" width="110" height="67" rx="10"></rect>
+              <text x="880" y="758">Replacement</text><text x="880" y="777">costs</text>
+            </g>
+            <g class="node cost-node" data-node="phased" tabindex="0" role="button" aria-label="Phased implementation">
+              <rect x="970" y="730" width="160" height="67" rx="10"></rect>
+              <text x="1050" y="752">Pressured into</text><text x="1050" y="772">phased implementation</text>
+            </g>
+
+            <!-- Unintended consequences -->
+            <g class="node consequence-node" data-node="consequences" tabindex="0" role="button" aria-label="Potential unintended consequences">
+              <rect x="985" y="425" width="190" height="150" rx="12"></rect>
+              <text x="1080" y="451">Unintended</text><text x="1080" y="471">Consequences</text>
+              <text class="consequence-copy" x="1080" y="500">Higher replacement costs</text>
+              <text class="consequence-copy" x="1080" y="522">Slower upgrades</text>
+              <text class="consequence-copy" x="1080" y="544">Different national policies</text>
+              <text class="consequence-copy" x="1080" y="560">complicate coordination</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <aside class="info-card">
+        <h2>Explore the map</h2>
+        <p>Click a node to show its related arrows. Arrows connecting the main system to a feedback loop stop at the loop’s outer box; the loop’s internal steps are shown separately.</p>
+        <p class="selection-label">CURRENT SELECTION</p>
+        <h3 id="selectedTitle">None selected</h3>
+        <p id="selectedDescription">Select a node such as EU / Member States or Telecom operators.</p>
+        <ul id="connectionDescriptions"></ul>
+        <div class="legend">
+          <div><span class="legend-line"></span>Direct relationship / flow</div>
+          <div><span class="legend-line dotted"></span>Possible or indirect consequence</div>
+          <div><span class="legend-line loop-one"></span>Feedback loop 1 · Supplier diversification</div>
+          <div><span class="legend-line loop-two"></span>Feedback loop 2 · Replacement costs</div>
+        </div>
+      </aside>
+    </div>
+    <p class="footnote">This map is a simplified political systems analysis. “May” and “potential” indicate possible effects, not guaranteed outcomes.</p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
